@@ -17,7 +17,7 @@ st.set_page_config(layout="wide", page_title="China Carbon Emissions — CSV Exp
 # ---- CONFIG: default CSV path (edit if needed) ----
 DEFAULT_CSV = "carbon_emissions_china.csv"  # change to your CSV filename/path
 
-# ---- Helpers ----
+# helpers 
 @st.cache_data
 def load_csv(path):
     df = pd.read_csv(path)
@@ -88,7 +88,7 @@ def safe_download_button(df, label, filename):
     csv_bytes = df.to_csv(index=True).encode('utf-8')
     st.download_button(label, csv_bytes, file_name=filename, mime='text/csv')
 
-# ---- Data input (CSV) ----
+# data input (csv)
 st.sidebar.header("1) Data input (CSV)")
 uploaded = st.sidebar.file_uploader("Upload CSV file (or skip to use default CSV)", type=["csv", "txt"])
 if uploaded:
@@ -102,7 +102,7 @@ else:
         st.sidebar.error("Default CSV not found. Please upload your CSV file.")
         st.stop()
 
-# ---- Detect columns & parse dates ----
+# detect columns & parse dates
 date_col, state_col, sector_col, metric_col = detect_columns(df)
 st.sidebar.write("Detected columns:")
 st.sidebar.write({"date": date_col, "state": state_col, "sector": sector_col, "metric": metric_col})
@@ -115,22 +115,22 @@ with st.sidebar.expander("Manual column overrides (if detection is wrong)"):
     sector_col = st.selectbox("Sector column", options=col_options, index=(0 if sector_col is None else col_options.index(sector_col)))
     metric_col = st.selectbox("Metric column (emissions)", options=col_options, index=(0 if metric_col is None else col_options.index(metric_col)))
 
-# Copy for working modifications
+# copy for working modifications
 working = df.copy()
 
-# Parse / coerce metric column to numeric
+# parse / coerce metric column to numeric
 if metric_col:
     working[metric_col] = pd.to_numeric(working[metric_col].astype(str).str.replace(',', '').str.strip(), errors='coerce')
 
-# Parse dates if available
+# parse dates if available
 if date_col:
     working[date_col] = pd.to_datetime(working[date_col], errors='coerce', infer_datetime_format=True)
 
-# Fill missing states to keep them in groupby
+# fill missing states to keep them in groupby
 if state_col and state_col in working.columns:
     working[state_col] = working[state_col].fillna('Unknown')
 
-# ---- Sidebar: Aggregation/filters (A) ----
+#sidebar: aggregation/filters (A)
 st.sidebar.header("2) Aggregation & filters (A)")
 agg_choice = st.sidebar.selectbox("Aggregation level", options=['Daily', 'Monthly', 'Yearly'], index=1)
 freq_map = {'Daily':'D', 'Monthly':'M', 'Yearly':'Y'}
