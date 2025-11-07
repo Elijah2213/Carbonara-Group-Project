@@ -311,5 +311,3 @@ else:
 st.sidebar.header("Quick checks")
 if st.sidebar.checkbox("Show sample rows"):
     st.sidebar.write(working.head(50))
-
-st.sidebar.markdown("If you'd like, I can add fuzzy matching to auto-map province names (using python-Levenshtein orfuzzywuzzy) or add monthly/yearly comparison charts.")
