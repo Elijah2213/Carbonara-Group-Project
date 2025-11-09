@@ -2,8 +2,9 @@ streamlit
 pandas
 numpy
 pathlib
-geopandas
+# Core graphing library that was missing:
 plotly
+# For the optional Choropleth map (Section B):
+geopandas
 fiona
 shapely
-plotly.express
