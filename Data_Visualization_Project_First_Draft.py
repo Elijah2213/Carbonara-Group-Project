@@ -124,7 +124,7 @@ if df_filtered.empty:
 tab1, tab2, tab3 = st.tabs([
     "Dashboard & Insights", 
     "Recommendations & Impact", 
-    "Project Summary"
+    "Summary Report"
 ])
 
 # --- Tab 1: Dashboard & Insights ---
@@ -264,7 +264,7 @@ with tab2:
 
 # --- Tab 3: Project Overview ---
 with tab3:
-    st.header("Project Summary")
+    st.header("Summary Report")
 
     st.subheader("Problem Statement")
     st.markdown("""
