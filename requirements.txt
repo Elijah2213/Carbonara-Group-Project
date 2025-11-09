@@ -2,7 +2,9 @@ streamlit
 pandas
 numpy
 pathlib
-geopandas
 plotly
+geopandas
 fiona
 shapely
+# ADD THIS LINE:
+openpyxl
