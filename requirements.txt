@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+pathlib
+geopandas
+plotly
+fiona
+shapely
